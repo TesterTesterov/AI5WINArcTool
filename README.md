@@ -1,4 +1,4 @@
-# AI6WINArcTool
+# AI5WINArcTool
 ## English
 Dual languaged (rus+eng) GUI tool for packing and unpacking archives of AI5WIN engine. Very-very incomplete list of games of the engine thou can see [on vndb](https://vndb.org/r?q=&o=a&s=title&f=fwAI5WIN-). **It is not the same arc as used in Silky Engine and AI6WIN. For Silky Engine .arc archives use [SilkyArcTool](https://github.com/TesterTesterov/SilkyArcTool) instead, for AI5WIN's use [AI6WINArcTool](https://github.com/TesterTesterov/AI6WINArcTool)!**
 
