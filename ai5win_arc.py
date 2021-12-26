@@ -21,11 +21,12 @@ from silky_arc import SilkyArc
 class AI5WINArc(SilkyArc):  # Previously released tool came to be handy.
     # Some part of the class is from SilkyArcTool.
     name_encoding = "cp932"
-    bytes_for_name = 32
+    possible_name_bytes = (20, 30, 32, 256)
     header_int_structure = "I"  # Just to be safe make this a parameter.
 
     known_keys_triplets = (
         (95, 1182992201, 391284862),
+        (3, 0x33656755, 0x68820811),
     )
 
     def __init__(self, arc: str, dir: str, verbose: bool = True, integrity_check: bool = False, **kwargs):
@@ -36,12 +37,14 @@ verbose: False (no progress messages) or True (enable progress messages).
 first_key: int, key for text in header.
 second_key: int, key for size in header.
 third_key: int, key for offset in header.
+name_bytes: int, number of bytes for a name.
 """
         super().__init__(arc, dir, verbose, integrity_check)
 
         self.first_key = kwargs.get("first_key", None)
         self.second_key = kwargs.get("second_key", None)
         self.third_key = kwargs.get("third_key", None)
+        self.name_bytes = kwargs.get("name_bytes", None)
 
         # names
         # 0 -- name, 1 -- compressed in lzss size, 2 -- offset from the beginning of the file.
@@ -53,14 +56,14 @@ third_key: int, key for offset in header.
     def _unpack_names(self) -> list:
         """Unpack archive names."""
         input_file = open(self._arc_name, 'rb')
-        self.first_key, self.second_key, self.third_key = self.hack_crypto_keys(input_file)
+        self.first_key, self.second_key, self.third_key, self.name_bytes = self.hack_size_and_crypto_keys(input_file)
         entry_count = self._read_header(input_file)
 
         array_name = []
         keyer = (self.second_key, self.third_key)
         for entrer in range(entry_count):
             prms = []
-            name = self.decrypt_name(input_file.read(self.bytes_for_name))
+            name = self.decrypt_name(input_file.read(self.name_bytes))
             prms.append(name)
             for key in keyer:
                 prms.append(struct.unpack(self.header_int_structure, input_file.read(4))[0] ^ key)
@@ -125,7 +128,7 @@ third_key: int, key for offset in header.
 
                 names.append(name_array)
 
-                sum += 40
+                sum += self.name_bytes + 8
                 # 1 байт за размер имени, далее имя, далее три >I параметра.
 
                 if self._verbose:
@@ -173,32 +176,44 @@ third_key: int, key for offset in header.
     # Other technical methods.
 
     @staticmethod
-    def hack_crypto_keys(input_file) -> tuple:
-        """Hack all three keys used to encrypt/obfusificate the header.
+    def hack_size_and_crypto_keys(input_file) -> tuple:
+        """Hack all three keys used to encrypt/obfusificate the header and length of names.
 Works only if the archive has at least 2 entries.
 First key is for text, second key is for size, third is for offset."""
 
         current_offset = input_file.tell()
 
-        input_file.seek(0, 0)
-        entry_count = struct.unpack('I', input_file.read(4))[0]
-        start_offset = 4 + entry_count * 40
+        bytes_for_name = 0
+        first_key = 0
+        second_key = 0
+        third_key = 0
 
-        input_file.seek(4 + AI5WINArc.bytes_for_name-1, 0)
-        first_key = input_file.read(1)[0]
-        bad_size = struct.unpack(AI5WINArc.header_int_structure, input_file.read(4))[0]
-        third_key = struct.unpack(AI5WINArc.header_int_structure, input_file.read(4))[0] ^ start_offset
+        for bytes_for_name in AI5WINArc.possible_name_bytes:
+            input_file.seek(0, 0)
+            entry_count = struct.unpack('I', input_file.read(4))[0]
+            start_offset = 4 + entry_count * (bytes_for_name + 8)
 
-        input_file.seek(4+40+36, 0)
-        next_offset = struct.unpack(AI5WINArc.header_int_structure, input_file.read(4))[0] ^ third_key
-        good_size = next_offset - start_offset
-        second_key = bad_size ^ good_size
+            input_file.seek(4 + bytes_for_name - 1, 0)
+            first_key = input_file.read(1)[0]
+            bad_size = struct.unpack(AI5WINArc.header_int_structure, input_file.read(4))[0]
+            third_key = struct.unpack(AI5WINArc.header_int_structure, input_file.read(4))[0] ^ start_offset
+
+            input_file.seek(4 + (bytes_for_name + 8) + (bytes_for_name + 4), 0)
+            next_offset = struct.unpack(AI5WINArc.header_int_structure, input_file.read(4))[0] ^ third_key
+            good_size = next_offset - start_offset
+            second_key = bad_size ^ good_size
+
+            if good_size <= 0:
+                continue
+
+            break
 
         input_file.seek(current_offset, 0)
 
         print(">>< Hacked keys/Взломанные ключи:", hex(first_key), hex(second_key), hex(third_key))
+        print(">>< Hacked name size/Взломанный размер имён:", bytes_for_name)
 
-        return first_key, second_key, third_key
+        return first_key, second_key, third_key, bytes_for_name
 
     def decrypt_name(self, test: bytes) -> str:
         """Decrypt AI5WIN-encrypted header entry name."""
@@ -213,10 +228,10 @@ First key is for text, second key is for size, third is for offset."""
         """Encrypt AI5WIN-encrypted header entry name."""
         test = test.encode(AI5WINArc.name_encoding)
         check_len = len(test)
-        if check_len >= (AI5WINArc.bytes_for_name - 1):
-            test = test[:AI5WINArc.bytes_for_name - 1] + b'\x00'
+        if check_len >= (self.name_bytes - 1):
+            test = test[:self.name_bytes - 1] + b'\x00'
         else:
-            test += b'\x00' * (AI5WINArc.bytes_for_name - check_len)
+            test += b'\x00' * (self.name_bytes - check_len)
         tester = b''
         for i in test:
             tester += struct.pack('B', i ^ self.first_key)
