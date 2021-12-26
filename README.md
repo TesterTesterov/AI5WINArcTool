@@ -11,7 +11,7 @@ Important note: the tool is quite slow. It may take several minutes to extract a
 
 # Usage
 ## English
-![image](https://user-images.githubusercontent.com/66121918/147290458-3967be65-6bbf-4e0d-be96-2605317349c4.png)
+![image](https://user-images.githubusercontent.com/66121918/147419469-1665af28-76a8-4ae5-b5e2-c5bf86303fdf.png)
 1. Run the tool (main.py or .exe).
 2. Print filename (with extension!!!) or choose it by clicking on button "...".
 3. Print directory or choose it by clicking on button "...".
@@ -21,7 +21,7 @@ Important note: the tool is quite slow. It may take several minutes to extract a
 7. If you unpacked, then in the directory of archive will apeear new ".key" file. Open it with text editor and you will get keys and names size of this archive (hacked authomatically). Enter this data afterwards to repack the archive.
 
 ## Русский
-![image](https://user-images.githubusercontent.com/66121918/147290423-16be6439-0814-46cc-b27f-503487e14a12.png)
+![image](https://user-images.githubusercontent.com/66121918/147419462-cd395702-66ce-40d7-b9ec-8bdd5080fcbb.png)
 1. Запустите пакет средств (main.py иль .exe).
 2. Введите имя архива (с расширением!!!) или выберите его, нажав на кнопку "...".
 3. Введите имя директории файлов или выберите его, нажав на кнопку "...".
