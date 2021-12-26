@@ -15,25 +15,27 @@ Important note: the tool is quite slow. It may take several minutes to extract a
 1. Run the tool (main.py or .exe).
 2. Print filename (with extension!!!) or choose it by clicking on button "...".
 3. Print directory or choose it by clicking on button "...".
-4. If you want to pack, then choose the keys (or enter yours).
+4. If you want to pack, then choose the keys and name size (or enter your data).
 5. Push the button pack or "Unpack" to "Pack" or unpack.
 6. Just wait until it done.
-7. If you unpacked, then in the directory of archive will apeear new ".key" file. Open it with text editor and you will get keys of this archive (hacked authomatically). Enter them afterwards to repack the archive.
+7. If you unpacked, then in the directory of archive will apeear new ".key" file. Open it with text editor and you will get keys and names size of this archive (hacked authomatically). Enter this data afterwards to repack the archive.
 
 ## Русский
 ![image](https://user-images.githubusercontent.com/66121918/147290423-16be6439-0814-46cc-b27f-503487e14a12.png)
 1. Запустите пакет средств (main.py иль .exe).
 2. Введите имя архива (с расширением!!!) или выберите его, нажав на кнопку "...".
 3. Введите имя директории файлов или выберите его, нажав на кнопку "...".
-4. Если вы хотите запаковать архив, выберите ключи (или введите свои).
+4. Если вы хотите запаковать архив, выберите ключи и размер имён (или введите свои данные).
 5. Нажмите на кнопку, соответствующую желаемому действию ("Распаковать" и "Запаковать").
 6. Ждите завершения.
-7. Если вы выполняли распаковку, то в директории архива появится новый файл с расширением ".key". Откройте его с текстовым редактором. Вы сможете увидеть ключи данного архива (взломанные автоматически), которые вы можете в дальнейшем вводить для перезапаковки архива.
+7. Если вы выполняли распаковку, то в директории архива появится новый файл с расширением ".key". Откройте его с текстовым редактором. Вы сможете увидеть ключи и размер имён данного архива (взломанные автоматически); сии данные вы можете в дальнейшем вводить для перезапаковки архива.
 
 # Tested on:
 
 ## On English
-- [Shangrlia](https://vndb.org/v3182).
+- [Shangrlia](https://vndb.org/v3182) ([Elf Classics](https://vndb.org/r5220)).
+- [Shangrlia](https://vndb.org/v3182) ([Shangrlia Multipack](https://vndb.org/r6255)).
 
 ## На русском
-- [Шангри-ла](https://vndb.org/v3182).
+- [Шангри-ла](https://vndb.org/v3182) ([Классика от Elf](https://vndb.org/r5220)).
+- [Шангри-ла](https://vndb.org/v3182) ([Шангли-ла: Комплексный пакет](https://vndb.org/r6255)).
