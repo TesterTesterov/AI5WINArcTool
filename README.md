@@ -36,10 +36,10 @@ Important note: the tool is quite slow. It may take several minutes to extract a
 
 # Tested on:
 
-## On English
+## English
 - [Shangrlia](https://vndb.org/v3182) ([Elf Classics](https://vndb.org/r5220)).
 - [Shangrlia](https://vndb.org/v3182) ([Shangrlia Multipack](https://vndb.org/r6255)).
 
-## На русском
+## Русский
 - [Шангри-ла](https://vndb.org/v3182) ([Классика от Elf](https://vndb.org/r5220)).
 - [Шангри-ла](https://vndb.org/v3182) ([Шангли-ла: Комплексный пакет](https://vndb.org/r6255)).
