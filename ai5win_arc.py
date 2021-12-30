@@ -203,6 +203,19 @@ First key is for text, second key is for size, third is for offset."""
             good_size = next_offset - start_offset
             second_key = bad_size ^ good_size
 
+            try:
+                for entry in range(entry_count):
+                    starter = 4 + entry*(8 + bytes_for_name)
+                    input_file.seek(starter, 0)
+                    new_bytes = input_file.read(bytes_for_name)
+                    tester = b''
+                    for i in new_bytes:
+                        tester += struct.pack('B', i ^ first_key)
+                    tester = tester.rstrip(b'\x00')
+                    tester.decode(SilkyArc.name_encoding)
+            except UnicodeDecodeError:
+                continue
+
             if good_size <= 0:
                 continue
 

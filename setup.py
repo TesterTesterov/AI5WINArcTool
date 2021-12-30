@@ -14,8 +14,8 @@ executables = [cx_Freeze.Executable("main.py",
                                     )]
 
 cx_Freeze.setup(
-        name="SilkyArcTool",
-        version="1.0",
+        name="AI5WINArcTool",
+        version="2.1",
         description="Dual languaged (rus+eng) tool for packing and unpacking archives of Silky Engine.\n"
                     "Двуязычное средство (рус+англ) для распаковки и запаковки архивов Silky Engine.",
         options={"build_exe": {"packages": []}},
