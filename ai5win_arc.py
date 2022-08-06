@@ -6,7 +6,7 @@
 # Header.
 ## 4 bytes for number of entries.
 ## In each entry:
-### 260 bytes for name (encrypted/obfusificated, see "decrypt_name".
+### N bytes (20, 30, 32, 256...) for name (encrypted/obfusificated, see "decrypt_name".
 ### 4 bytes (<I) for LZSS compressed size.
 ### 4 bytes (<I) for uncompressed size.
 ### 4 bytes (<I) for data offset from the beginning of file.
@@ -21,12 +21,13 @@ from silky_arc import SilkyArc
 class AI5WINArc(SilkyArc):  # Previously released tool came to be handy.
     # Some part of the class is from SilkyArcTool.
     name_encoding = "cp932"
-    possible_name_bytes = (20, 30, 32, 256)
+    possible_name_bytes = (12, 20, 30, 32, 256)
     header_int_structure = "I"  # Just to be safe make this a parameter.
 
     known_keys_triplets = (
         (95, 1182992201, 391284862),
         (3, 0x33656755, 0x68820811),
+        (0x55, 0xaa55aa55, 0x55aa55aa),  # Doukyuusei 2.
     )
 
     def __init__(self, arc: str, dir: str, verbose: bool = True, integrity_check: bool = False, **kwargs):
@@ -64,6 +65,8 @@ name_bytes: int, number of bytes for a name.
         for entrer in range(entry_count):
             prms = []
             name = self.decrypt_name(input_file.read(self.name_bytes))
+            if '\x00' in name:  # Some crutch to fix "garbage archives".
+                name = name.split('\x00')[0]
             prms.append(name)
             for key in keyer:
                 prms.append(struct.unpack(self.header_int_structure, input_file.read(4))[0] ^ key)
@@ -213,7 +216,7 @@ First key is for text, second key is for size, third is for offset."""
                         tester += struct.pack('B', i ^ first_key)
                     tester = tester.rstrip(b'\x00')
                     tester.decode(SilkyArc.name_encoding)
-            except UnicodeDecodeError:
+            except UnicodeDecodeError as ex:
                 continue
 
             if good_size <= 0:
