@@ -42,6 +42,6 @@ Important note: the tool is quite slow. It may take several minutes to extract a
 - [Shangrlia](https://vndb.org/v3182) ([Shangrlia Multipack](https://vndb.org/r6255)).
 
 ## Русский
-- [Doukyuusei 2](https://vndb.org/v2337).
+- [Одноклассники 2](https://vndb.org/v2337).
 - [Шангри-ла](https://vndb.org/v3182) ([Классика от Elf](https://vndb.org/r5220)).
 - [Шангри-ла](https://vndb.org/v3182) ([Шангли-ла: Комплексный пакет](https://vndb.org/r6255)).
