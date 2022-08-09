@@ -6,12 +6,20 @@ You may want to compile and decompile AI5WIN mes script files. For this use [AI5
 
 Important note: the tool is quite slow. It may take several minutes to extract and especially pack even rather small archives.
 
+Versions:
+- [AI5WINArcTool 2.2](https://github.com/TesterTesterov/AI5WINArcTool/releases/tag/2.2) -- for using in ustandard archives like in Dokyuusei 2's ones.
+- [AI5WINArcTool 2.1](https://github.com/TesterTesterov/AI5WINArcTool/releases/tag/2.1) -- for using in standard archives like in Shangrlia's ones.
+
 ## Русский
 Двуязычное средство (рус+англ) для распаковки и запаковки архивов движка AI5WIN. Очень-преочень неполный список игр на движке вы можете обозревать [здесь](https://vndb.org/r?f=fwAI6WIN-). **Не стоит путать его с разновидностями .arc, используемым в Silky Engine и AI6WIN. Для них используйте другие средства: [SilkyArcTool](https://github.com/TesterTesterov/SilkyArcTool) и [AI6WINArcTool](https://github.com/TesterTesterov/AI6WINArcTool) соответственно!**
 
 Вам может понадобиться (де)компилировать скрипты mes движка AI5WIN. Для сего используйте средство [AI5WINScriptTool](https://github.com/TesterTesterov/AI5WINScriptTool).
 
 Важная заметка: средство достаточно медленное. Для того, чтобы распаковать и запаковать даже достаточно маленький архив, может потребоваться несколько минут.
+
+Версии:
+- [AI5WINArcTool 2.2](https://github.com/TesterTesterov/AI5WINArcTool/releases/tag/2.2) -- для использования в нестандартных архивах, как в Одноклассниках 2.
+- [AI5WINArcTool 2.1](https://github.com/TesterTesterov/AI5WINArcTool/releases/tag/2.1) -- для использования в стандартных архивах, как в Шангри-ла.
 
 # Usage
 ## English
